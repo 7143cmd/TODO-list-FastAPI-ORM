@@ -1,0 +1,20 @@
+[project]
+name = "todo"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Dmytro",email = "pytakdima@gmail.com"}
+]
+license = {text = "MIT"}
+package-mode = false
+requires-python = ">=3.13"
+dependencies = [
+    "cryptography (>=45.0.5,<46.0.0)",
+    "uvicorn (>=0.35.0,<0.36.0)",
+    "fastapi (>=0.116.1,<0.117.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
