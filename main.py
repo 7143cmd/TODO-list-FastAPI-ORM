@@ -58,7 +58,7 @@ def login_post(request: Request, username: str = Form(...), password: str = Form
             "error": "Incorrect login or password"
         })
     
-    response = RedirectResponse(url="/profile", status_code=302)
+    response = RedirectResponse(url="/my_list", status_code=302)
     response.set_cookie("username", username)
     return response
 
