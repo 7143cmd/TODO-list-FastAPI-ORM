@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block title %}Profile{% endblock %}
+
+
+{% block content %}
+<div class="form-container">
+    <h2>Welcome, {{ username }}</h2>
+    <p>This is your profile page.</p>
+
+{% if is_admin %}
+    <form action="/admin">
+        <button type="submit">ADMIN panel</button>
+    </form>
+{% endif %}
+
+    <a href="/logout">Logout</a>
+</div>
+{% endblock %}
