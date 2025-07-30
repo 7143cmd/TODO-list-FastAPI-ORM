@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="/my_list">Мои списки</a>
+        <a href="/profile">Профиль</a>
+        <a href="/logout">Выйти</a>
+    </nav>
+
+    <div class="dashboard-container">
+        <h1>Мои TODO списки</h1>
+        <div class="todo-list">
+            <!-- Пример карточки списка -->
+            <a href="/todo/1" class="todo-card">
+                <div class="todo-title">Список покупок</div>
+                <div class="todo-date">Создан: 2025-07-30</div>
+            </a>
+            <a href="/todo/2" class="todo-card">
+                <div class="todo-title">Рабочие задачи</div>
+                <div class="todo-date">Создан: 2025-07-29</div>
+            </a>
+            <!-- Добавить больше карточек можно аналогично -->
+        </div>
+    </div>
+</body>
+</html>

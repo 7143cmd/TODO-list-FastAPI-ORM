@@ -90,6 +90,13 @@ def profile(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request, "username": username})
     
 
+@app.get("/my_list", response_class=HTMLResponse)
+def profile(request: Request):
+    username = request.cookies.get("username")
+    if not username:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("main.html", {"request": request, "username": username})
+
 
 @app.get("/logout")
 def logout():
