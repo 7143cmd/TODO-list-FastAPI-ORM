@@ -22,7 +22,11 @@ def AlreadyExist(username):
 
 @app.get("/login", response_class=HTMLResponse)
 def login_form(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    username = request.cookies.get("username")
+    if username:
+        return RedirectResponse(url="/profile", status_code=303)
+    else:
+        return templates.TemplateResponse("login.html", {"request": request})
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -83,12 +87,12 @@ def profile(request: Request):
 
 @app.get("/my_list", response_class=HTMLResponse)
 def profile(request: Request):
-    t = 'Work'
-    c = 'Don`t forget'
-    ADD(Username=(request.cookies.get("username")),title=t, context=c )
-    ######################################
-    # print(request.cookies.get("username"))
-    #######################################
+    # t = 'Work'
+    # c = 'Don`t forget'
+    # ADD(Username=(request.cookies.get("username")),title=t, context=c )
+    # ######################################
+    # # print(request.cookies.get("username"))
+    # #######################################
 
     username = request.cookies.get("username")
     if not username:
