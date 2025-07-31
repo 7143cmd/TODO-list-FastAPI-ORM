@@ -1,4 +1,4 @@
-from db import DATABASE_CONNECT_USERS, REGISTRATION_INSERT, Get_USER, ADD
+from db import DATABASE_CONNECT_USERS, DATABASE_CONNECT_RECORDS, REGISTRATION_INSERT, Get_USER, ADD, Get_Records, Records
 from CacheProcess import decode_password, encrypt_password
 from fastapi import *
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
@@ -97,8 +97,33 @@ def profile(request: Request):
     username = request.cookies.get("username")
     if not username:
         return RedirectResponse(url="/login", status_code=303)
-    return templates.TemplateResponse("main.html", {"request": request, "username": username})
+    
+    records = Get_Records(username)
+    
+    return templates.TemplateResponse("main.html", {
+        "request": request, 
+        "username": username,
+        "records": records
+    })
 
+@app.get("/todo/{record_id}", response_class=HTMLResponse)
+def view_record(request: Request, record_id: int):
+    username = request.cookies.get("username")
+    if not username:
+        return RedirectResponse(url="/login", status_code=303)
+    
+    session = DATABASE_CONNECT_RECORDS()
+    try:
+        record = session.query(Records).filter(Records.id == record_id, Records.UserLogin == username).first()
+        if not record:
+            return RedirectResponse(url="/my_list", status_code=303)
+            
+        return templates.TemplateResponse("todo_detail.html", {
+            "request": request,
+            "record": record
+        })
+    finally:
+        session.close()
 
 @app.get("/logout")
 def logout():

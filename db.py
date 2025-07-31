@@ -73,3 +73,11 @@ def Get_USER(username):
         return user
     finally:
         session.close()
+
+def Get_Records(username):
+    session = DATABASE_CONNECT_RECORDS()
+    try:
+        records = session.query(Records).filter_by(UserLogin=username).order_by(Records.created_at.desc()).all()
+        return records
+    finally:
+        session.close()

@@ -8,23 +8,19 @@
 <body>
     <nav class="nav-bar">
         <a href="/my_list">My lists</a>
-        <a href="/profile">{% if request.cookies.get("username") %}{{ request.cookies.get("username") }}{% else %}Profile{% endif %}</a>
+        <a href="/profile">{{ username }}</a>
         <a href="/logout">Logout</a>
     </nav>
 
     <div class="dashboard-container">
         <h1>My TODO list</h1>
         <div class="todo-list">
-            <!-- Пример карточки списка -->
-            <a href="/todo/1" class="todo-card">
-                <div class="todo-title">Список покупок</div>
-                <div class="todo-date">Создан: 2025-07-30</div>
+            {% for record in records %}
+            <a href="/todo/{{ record.id }}" class="todo-card">
+                <div class="todo-title">{{ record.title }}</div>
+                <div class="todo-date">Создан: {{ record.created_at.strftime('%Y-%m-%d') }}</div>
             </a>
-            <a href="/todo/2" class="todo-card">
-                <div class="todo-title">Рабочие задачи</div>
-                <div class="todo-date">Создан: 2025-07-29</div>
-            </a>
-            <!-- Добавить больше карточек можно аналогично -->
+            {% endfor %}
         </div>
     </div>
 </body>

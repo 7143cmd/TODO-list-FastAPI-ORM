@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ record.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="/my_list">My lists</a>
+        <a href="/profile">{{ request.cookies.get("username") }}</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="dashboard-container">
+        <h1>{{ record.title }}</h1>
+        <div class="todo-detail">
+            <div class="todo-content">
+                {{ record.context }}
+            </div>
+        </div>
+        <div class="todo-date">Created at: {{ record.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+        <a href="/my_list" class="back-button">Back to my lists</a>
+    </div>
+</body>
+</html>
