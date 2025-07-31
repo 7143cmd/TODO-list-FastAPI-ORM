@@ -1,4 +1,4 @@
-from db import DATABASE_CONNECT, INSERT_INTO
+from db import DATABASE_CONNECT, INSERT_INTO, Get_USER
 from CacheProcess import decode_password, encrypt_password
 from fastapi import *
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
@@ -16,12 +16,8 @@ async def favicon():
 
 
 def AlreadyExist(username):
-    conn = DATABASE_CONNECT()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM passWRD WHERE UserLogin = ?", (username,))
-    user = cur.fetchone()
-    conn.close()
-    return user is not None
+    user = Get_USER(username)
+    return user
 
 
 @app.get("/login", response_class=HTMLResponse)
@@ -32,12 +28,7 @@ def login_form(request: Request):
 @app.post("/login", response_class=HTMLResponse)
 def login_post(request: Request, username: str = Form(...), password: str = Form(...)):
 
-    conn = DATABASE_CONNECT()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM passWRD WHERE UserLogin = ?", (username,))
-    user = cur.fetchone()
-    conn.close()
-  
+    user = Get_USER(username)
 
     if not user:
         return templates.TemplateResponse("login.html", {
@@ -45,7 +36,7 @@ def login_post(request: Request, username: str = Form(...), password: str = Form
             "error": "Incorrect login or password"
         })
     try:
-        decrypted_password = decode_password(user["CachedPassword"])
+        decrypted_password = decode_password(user.CachedPassword)
         if password != decrypted_password:
             # print(decrypted_password)
             # print(user)
