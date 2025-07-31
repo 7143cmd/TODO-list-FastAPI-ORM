@@ -8,7 +8,7 @@
 <body>
     <nav class="nav-bar">
         <a href="/my_list">My lists</a>
-        <a href="/profile">Profile</a>
+        <a href="/profile">{% if request.cookies.get("username") %}{{ request.cookies.get("username") }}{% else %}Profile{% endif %}</a>
         <a href="/logout">Logout</a>
     </nav>
 

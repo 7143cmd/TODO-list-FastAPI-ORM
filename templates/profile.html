@@ -5,15 +5,14 @@
 
 
 {% block content %}
+<nav class="nav-bar">
+        <a href="/my_list">My lists</a>
+        <a href="/profile">{% if request.cookies.get("username") %}{{ request.cookies.get("username") }}{% else %}Profile{% endif %}</a>
+        <a href="/logout">Logout</a>
+</nav>
 <div class="form-container">
     <h2>Welcome, {{ username }}</h2>
     <p>This is your profile page.</p>
-
-{% if is_admin %}
-    <form action="/admin">
-        <button type="submit">ADMIN panel</button>
-    </form>
-{% endif %}
 
     <a href="/logout">Logout</a>
 </div>
