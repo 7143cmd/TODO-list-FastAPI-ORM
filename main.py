@@ -1,4 +1,4 @@
-from db import DATABASE_CONNECT, INSERT_INTO, Get_USER
+from db import DATABASE_CONNECT_USERS, REGISTRATION_INSERT, Get_USER, ADD
 from CacheProcess import decode_password, encrypt_password
 from fastapi import *
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
@@ -67,7 +67,7 @@ def register_post(request: Request, username: str = Form(...), password: str = F
         })
 
     encrypted_password = encrypt_password(password)
-    INSERT_INTO(UserPassword=password, CachedPassword=encrypted_password, UserLogin=username)
+    REGISTRATION_INSERT(UserPassword=password, CachedPassword=encrypted_password, UserLogin=username)
 
     response = RedirectResponse(url="/login", status_code=302)
     return response
@@ -83,6 +83,13 @@ def profile(request: Request):
 
 @app.get("/my_list", response_class=HTMLResponse)
 def profile(request: Request):
+    t = 'Work'
+    c = 'Don`t forget'
+    ADD(Username=(request.cookies.get("username")),title=t, context=c )
+    ######################################
+    # print(request.cookies.get("username"))
+    #######################################
+
     username = request.cookies.get("username")
     if not username:
         return RedirectResponse(url="/login", status_code=303)
