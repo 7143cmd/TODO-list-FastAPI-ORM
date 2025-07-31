@@ -90,7 +90,7 @@ a {
 }
 .nav-bar {
     position: fixed;
-    top: 0; /* или bottom: 0; чтобы было снизу */
+    top: 0;
     left: 0;
     right: 0;
     height: 50px;
@@ -117,8 +117,74 @@ a {
     background-color: #f0f0f0;
 }
 
-/* чтобы контент не был под меню */
 .container {
-    margin-top: 70px; /* если nav сверху */
-    /* или margin-bottom: 70px; если nav внизу */
+    margin-top: 70px;
 }
+.page-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.note-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    min-width: 650px;
+    max-width: 1500px;
+    min-height: 400px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.note-title {
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.note-content {
+    font-size: 18px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 200px;
+    max-height: 600px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: #999;
+}
+
+.back-button {
+    margin-top: 20px;
+    align-self: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+

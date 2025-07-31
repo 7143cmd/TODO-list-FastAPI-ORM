@@ -12,15 +12,22 @@
         <a href="/logout">Logout</a>
     </nav>
 
-    <div class="dashboard-container">
-        <h1>{{ record.title }}</h1>
-        <div class="todo-detail">
-            <div class="todo-content">
+    <div class="page-container">
+        <div class="note-card">
+            <h1 class="note-title">{{ record.title }}</h1>
+
+            <div class="note-content">
                 {{ record.context }}
             </div>
+
+            <div class="note-footer">
+                <span class="note-date">
+                    Created at: {{ record.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </span>
+            </div>
+
+            <a href="/my_list" class="back-button">Back to my lists</a>
         </div>
-        <div class="todo-date">Created at: {{ record.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
-        <a href="/my_list" class="back-button">Back to my lists</a>
     </div>
 </body>
 </html>
