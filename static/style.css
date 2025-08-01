@@ -46,6 +46,7 @@ a {
     color: #007bff;
     text-decoration: none;
 }
+
 .dashboard-container {
     width: 800px;
     max-width: 90%;
@@ -88,6 +89,7 @@ a {
     font-size: 14px;
     color: #777;
 }
+
 .nav-bar {
     position: fixed;
     top: 0;
@@ -120,6 +122,7 @@ a {
 .container {
     margin-top: 70px;
 }
+
 .page-container {
     margin-top: 100px;
     display: flex;
@@ -188,3 +191,61 @@ a {
     background-color: #0056b3;
 }
 
+.editable-note {
+    position: relative;
+}
+
+.edit-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffc107;
+    color: black;
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.editable-note:hover .edit-button {
+    opacity: 1;
+}
+
+.note-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cancel-button,
+.create-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+
+.create-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.create-button:hover {
+    background-color: #218838;
+}

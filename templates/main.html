@@ -13,15 +13,22 @@
     </nav>
 
     <div class="dashboard-container">
-        <h1>My TODO list</h1>
-        <div class="todo-list">
-            {% for record in records %}
-            <a href="/todo/{{ record.id }}" class="todo-card">
-                <div class="todo-title">{{ record.title }}</div>
-                <div class="todo-date">Создан: {{ record.created_at.strftime('%Y-%m-%d') }}</div>
-            </a>
-            {% endfor %}
-        </div>
+    <h1>My TODO list</h1>
+
+    <div class="create-note-wrapper">
+        <a href="/todo/new" class="create-button">➕ Create New Note</a>
     </div>
+
+    <div class="todo-list">
+        {% for record in records %}
+        <a href="/todo/{{ record.id }}" class="todo-card">
+            <div class="todo-title">{{ record.title }}</div>
+            <div class="todo-date">Created at: {{ record.created_at.strftime('%Y-%m-%d') }}</div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+    
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit {{ record.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="/my_list">My lists</a>
+        <a href="/profile">{{ request.cookies.get("username") }}</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <div class="page-container">
+        <form class="note-card" method="post" action="/todo/{{ record.id }}/edit">
+            <input type="text" name="title" value="{{ record.title }}" class="note-title" required>
+
+            <textarea name="context" class="note-content" required>{{ record.context }}</textarea>
+
+            <button type="submit" formaction="/todo/{{ record.id }}/delete" formmethod="post"
+                    class="back-button" style="background-color: #dc3545; margin-top: 10px;">
+                🗑 Delete
+            </button>
+
+            <div class="note-footer">
+                <span class="note-date">
+                    Created at: {{ record.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </span>
+            </div>
+
+            <button class="back-button" type="submit" style="margin-top: 10px;">💾 Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

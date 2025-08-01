@@ -76,6 +76,19 @@ def register_post(request: Request, username: str = Form(...), password: str = F
     response = RedirectResponse(url="/login", status_code=302)
     return response
 
+@app.get("/todo/new", response_class=HTMLResponse)
+def new_note(request: Request):
+    return templates.TemplateResponse("create_note.html", {"request": request})
+
+@app.post("/todo/new")
+def create_note_post(request: Request, title: str = Form(...), context: str = Form(...)):
+
+    username = request.cookies.get("username")
+
+    ADD(username,title,context)
+
+    return RedirectResponse(url="/my_list", status_code=302)
+
 
 @app.get("/profile", response_class=HTMLResponse)
 def profile(request: Request):
@@ -124,6 +137,63 @@ def view_record(request: Request, record_id: int):
         })
     finally:
         session.close()
+
+@app.get("/todo/{record_id}/edit", response_class=HTMLResponse)
+def edit_record(request: Request, record_id: int):
+    username = request.cookies.get("username")
+    if not username:
+        return RedirectResponse(url="/login", status_code=303)
+
+    session = DATABASE_CONNECT_RECORDS()
+    try:
+        record = session.query(Records).filter(Records.id == record_id, Records.UserLogin == username).first()
+        if not record:
+            return RedirectResponse(url="/my_list", status_code=303)
+
+        return templates.TemplateResponse("edit_todo.html", {
+            "request": request,
+            "record": record
+        })
+    finally:
+        session.close()
+
+
+@app.post("/todo/{record_id}/edit")
+def update_record(request: Request, record_id: int, title: str = Form(...), context: str = Form(...)):
+    username = request.cookies.get("username")
+    if not username:
+        return RedirectResponse(url="/login", status_code=303)
+
+    session = DATABASE_CONNECT_RECORDS()
+    try:
+        record = session.query(Records).filter(Records.id == record_id, Records.UserLogin == username).first()
+        if not record:
+            return RedirectResponse(url="/my_list", status_code=303)
+
+        record.title = title
+        record.context = context
+        session.commit()
+        return RedirectResponse(url=f"/todo/{record_id}", status_code=303)
+    finally:
+        session.close()
+
+
+@app.post("/todo/{record_id}/delete")
+def delete_record(request: Request, record_id: int):
+    username = request.cookies.get("username")
+    if not username:
+        return RedirectResponse(url="/login", status_code=303)
+
+    session = DATABASE_CONNECT_RECORDS()
+    try:
+        record = session.query(Records).filter(Records.id == record_id, Records.UserLogin == username).first()
+        if record:
+            session.delete(record)
+            session.commit()
+        return RedirectResponse(url="/my_list", status_code=303)
+    finally:
+        session.close()
+        
 
 @app.get("/logout")
 def logout():

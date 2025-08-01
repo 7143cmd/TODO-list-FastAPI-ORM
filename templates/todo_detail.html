@@ -13,7 +13,7 @@
     </nav>
 
     <div class="page-container">
-        <div class="note-card">
+        <div class="note-card editable-note">
             <h1 class="note-title">{{ record.title }}</h1>
 
             <div class="note-content">
@@ -27,7 +27,10 @@
             </div>
 
             <a href="/my_list" class="back-button">Back to my lists</a>
+
+            <a href="/todo/{{ record.id }}/edit" class="edit-button">✏️ Edit</a>
         </div>
     </div>
 </body>
 </html>
+
